@@ -8,11 +8,33 @@
  * @see <a href="https://cs125.cs.illinois.edu/lab/8/">Lab 8 Description</a>
  */
 public class Bank {
+    /**
+     * Name of our bank.
+     */
+    private String bankName;
 
-    public String bankName;
-
+    /**
+     * Constructor to Bank class.
+     */
     public Bank() {
         bankName = "Illini Bank";
+    }
+
+    /*SETTER AND GETTER METHODS*/
+    /**
+     * Sets our bank name to the user input.
+     * @param name the bank's new name
+     */
+    public void setBankName(final String name) {
+        bankName = name;
+    }
+
+    /**
+     * Allows the user to access the bank's name.
+     * @return the bank's name
+     */
+    public String getBankName() {
+        return bankName;
     }
 
     /**
@@ -29,6 +51,16 @@ public class Bank {
         /*
          * Implement this function
          */
+        if (bankAccount.getBalance() - amount >= 0) {
+            bankAccount.setBalance(bankAccount.getBalance() - amount);
+            System.out.println("New balance for " + bankAccount.getOwner()
+            + ": " + bankAccount.getBalance());
+            return true;
+        } else {
+            System.out.println("New balance for " + bankAccount.getOwner()
+            + ": " + bankAccount.getBalance());
+            return false;
+        }
     }
 
     /**
@@ -45,6 +77,16 @@ public class Bank {
         /*
          * Implement this function
          */
+        if (amount < 0) {
+            System.out.println("New balance for " + bankAccount.getOwner()
+            + ": " + bankAccount.getBalance());
+            return false;
+        } else {
+            bankAccount.setBalance(bankAccount.getBalance() + amount);
+            System.out.println("New balance for " + bankAccount.getOwner()
+            + ": " + bankAccount.getBalance());
+            return true;
+        }
     }
 
     /**
@@ -64,6 +106,11 @@ public class Bank {
         /*
          * Implement this function
          */
+        if (withdrawMoney(source, amount) && depositMoney(destination, amount)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -77,9 +124,13 @@ public class Bank {
         /*
          * Implement this function
          */
+        bankAccount.setName(name);
     }
 
-    public static int totalAccounts = 0;
+    /**
+     * Total number of accounts made using this class.
+     */
+    private static int totalAccounts = 0;
     /**
      * Uses static variable to get number of bank accounts opened.
      *
@@ -89,6 +140,13 @@ public class Bank {
         /*
          * Implement this function
          */
+        return totalAccounts;
+    }
+    /**
+     * Increases the number of accounts by one.
+     */
+    public static void setNumberOfAccount() {
+        totalAccounts++;
     }
 
     /**
@@ -103,10 +161,10 @@ public class Bank {
         System.out.println("We are excited to have you banking with us!\n\n");
 
         // Create Bank Accounts
-        BankAccount account1 = new BankAccount("John Doe", BankAccountType.CHECKINGS);
+        BankAccount account1 = new BankAccount("John Doe", BankAccount.BankAccountType.CHECKINGS);
         System.out.println("Bank account for John Doe created");
 
-        BankAccount account2 = new BankAccount("Jony Ive", BankAccountType.STUDENT);
+        BankAccount account2 = new BankAccount("Jony Ive", BankAccount.BankAccountType.STUDENT);
         System.out.println("Bank account for Johy Ive created\n\n");
 
         // Deposit money to both accounts and print new balance
